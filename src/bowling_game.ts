@@ -1,5 +1,16 @@
 export const calculateTotalScore = (inputFrames: string[]): number => {
   let totalScore = 0;
+  for (let index = 0; index < 10; index++) {
+    let frame = inputFrames[index];
+    if (isFrameStrike(frame)) {
+      totalScore =
+        totalScore + 10 + getScoreFromNextTwoRolls(index, inputFrames);
+    } else if (isFrameSpare(frame)) {
+      totalScore = totalScore + 10 + getScoreFromNextRoll(index, inputFrames);
+    } else {
+      totalScore = totalScore + getFrameScore(frame);
+    }
+  }
   return totalScore;
 };
 
@@ -34,6 +45,7 @@ export const getScoreFromNextTwoRolls = (
   let rollNumber2 = framesArray[index + 1].charAt(1)
     ? framesArray[index + 1].charAt(1)
     : framesArray[index + 2].charAt(0);
+  console.log(`rollNumber1 = ${rollNumber1} , rollNumber2 = ${rollNumber2}`);
   if (rollNumber1 === "X") bonusScore = 10;
   else bonusScore = Number(rollNumber1);
 

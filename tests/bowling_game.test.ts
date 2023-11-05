@@ -3,6 +3,7 @@
 //5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5 150
 
 import {
+  calculateTotalScore,
   generateArrayOfFrames,
   getFrameScore,
   getScoreFromNextRoll,
@@ -235,5 +236,143 @@ describe("test function getFrameScore", () => {
     expect(getFrameScore("2-")).toBe(2);
     expect(getFrameScore("9-")).toBe(9);
     expect(getFrameScore("4-")).toBe(4);
+  });
+});
+const sampleFrames9 = [
+  "1-",
+  "1-",
+  "1-",
+  "1-",
+  "1-",
+  "1-",
+  "1-",
+  "1-",
+  "1-",
+  "1-",
+];
+const sampleFrames10 = [
+  "1-",
+  "2-",
+  "3-",
+  "4-",
+  "5-",
+  "6-",
+  "7-",
+  "8-",
+  "9-",
+  "1-",
+];
+const sampleFrames11 = [
+  "9-",
+  "9-",
+  "9-",
+  "9-",
+  "9-",
+  "9-",
+  "9-",
+  "9-",
+  "9-",
+  "9-",
+];
+
+const sampleFrames12 = [
+  "-1",
+  "-1",
+  "-1",
+  "-1",
+  "-1",
+  "-1",
+  "-1",
+  "-1",
+  "-1",
+  "-1",
+];
+const sampleFrames13 = [
+  "-1",
+  "-2",
+  "-3",
+  "-4",
+  "-5",
+  "-6",
+  "-7",
+  "-8",
+  "-9",
+  "-1",
+];
+const sampleFrames14 = [
+  "-9",
+  "-9",
+  "-9",
+  "-9",
+  "-9",
+  "-9",
+  "-9",
+  "-9",
+  "-9",
+  "-9",
+];
+
+const sampleFrames15 = [
+  "12",
+  "23",
+  "33",
+  "44",
+  "22",
+  "44",
+  "11",
+  "22",
+  "33",
+  "44",
+];
+
+const sampleFrames16 = [
+  "5/",
+  "5/",
+  "5/",
+  "5/",
+  "5/",
+  "5/",
+  "5/",
+  "5/",
+  "5/",
+  "5/5",
+];
+
+describe("test function calculateTotalScore with just single digit score in each frame", () => {
+  it("for game with just 1 pin falling in each frame , score should be 10", () => {
+    expect(calculateTotalScore(sampleFrames9)).toBe(10);
+  });
+  it("for game with just  few pins falling in first roll of each frame with none falling in the second roll, score should be 46", () => {
+    expect(calculateTotalScore(sampleFrames10)).toBe(46);
+  });
+  it("for game with just 9 pins falling in first roll of each frame , score should be 90", () => {
+    expect(calculateTotalScore(sampleFrames11)).toBe(90);
+  });
+});
+
+describe("test function calculateTotalScore with just single digit score in each frame", () => {
+  it("for game with just 1 pin falling in second roll of each frame , score should be 10", () => {
+    expect(calculateTotalScore(sampleFrames12)).toBe(10);
+  });
+  it("for game with just  few pins falling in second roll of each frame with none falling in the first roll, score should be 40", () => {
+    expect(calculateTotalScore(sampleFrames13)).toBe(46);
+  });
+  it("for game with just 9 pins falling in second roll of each frame , score should be 90", () => {
+    expect(calculateTotalScore(sampleFrames14)).toBe(90);
+  });
+});
+describe("test function calculateTotalScore single digit scores in each roll of each frame", () => {
+  it("for game with just few pins falling in both rolls of each frame , score should be 54", () => {
+    expect(calculateTotalScore(sampleFrames15)).toBe(54);
+  });
+});
+describe("test function calculateTotalScore when strike is made in each frame", () => {
+  it("for game with all pins falling in first roll of each frame , score should be 300", () => {
+    expect(calculateTotalScore(sampleFrames1)).toBe(300);
+  });
+});
+describe("test function calculateTotalScore when spare is made in each frame", () => {
+  it("for game with all pins falling by the second roll of each frame , score should be 150", () => {
+    expect(calculateTotalScore(sampleFrames16)).toBe(150);
   });
 });
